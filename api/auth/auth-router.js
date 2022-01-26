@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { checkUsernameExists, validateRoleName } = require('./auth-middleware');
 const { JWT_SECRET } = require("../secrets"); // use this secret!
+const User = require('../users/users-model')
 
 router.post("/register", validateRoleName, (req, res, next) => {
   /**
@@ -14,6 +15,12 @@ router.post("/register", validateRoleName, (req, res, next) => {
       "role_name": "angel"
     }
    */
+  const { username, password, role_name } = req.body
+  
+  User.add({username, password, role_name})
+    .then(newUser => {
+      res.status(201).json(newUser)
+    }).catch(err => next(err))
 });
 
 

@@ -89,7 +89,8 @@ const validateRoleName = (req, res, next) => {
   */
   const { role_name } = req.body;
   if (role_name === undefined || role_name.trim() === "") {
-    req.role_name = "student";
+    req.body.role_name = "student";
+    req.body.role_id = 3;
     next();
   } else if (role_name.trim() === "admin") {
     next({ status: 422, message: "Role name can not be admin" });
