@@ -40,7 +40,8 @@ async function findBy(filter) {
    */
   const users = await db("users")
     .leftJoin("roles", "users.role_id", "roles.role_id")
-    .select(filter);
+    .where(filter);
+  return users
 }
 
 async function findById(user_id) {
