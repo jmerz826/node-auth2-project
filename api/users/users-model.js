@@ -57,7 +57,8 @@ async function findById(user_id) {
   const user = await db("users")
     .where({ user_id })
     .leftJoin("roles", "users.role_id", "roles.role_id")
-    .select("users.user_id", "users.username", "roles.role_name");
+    .select("users.user_id", "users.username", "roles.role_name")
+    .first();
   return user;
 }
 
