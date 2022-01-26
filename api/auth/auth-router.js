@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { checkUsernameExists, validateRoleName } = require('./auth-middleware');
 const { JWT_SECRET } = require("../secrets"); // use this secret!
 const User = require('../users/users-model')
+const bcrypt = require('bcryptjs')
 
 router.post("/register", validateRoleName, (req, res, next) => {
   /**
@@ -15,7 +16,9 @@ router.post("/register", validateRoleName, (req, res, next) => {
       "role_name": "angel"
     }
    */
-  const { username, password, role_name } = req.body
+  let { username, password, role_name } = req.body
+
+  password = bcrypt.hashSync(password)
   
   User.add({username, password, role_name})
     .then(newUser => {
