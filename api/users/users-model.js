@@ -20,7 +20,7 @@ async function find() {
    */
   const users = await db("users")
     .leftJoin("roles", "users.role_id", "roles.role_id")
-    .select("users.user_id", "users.username", "roles.role_id");
+    .select("users.user_id", "users.username", "roles.role_id", "roles.role_name");
   return users;
 }
 
